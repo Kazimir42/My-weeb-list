@@ -9,22 +9,37 @@
   <script type="text/javascript" src="src/index.js" defer></script>
 </head>
 
-<body class="w-96 h-64">
-  <main id="app" class="bg-gray-200">
+<body class="w-96 m-h-64 bg-gray-200">
+  <main id="app" class=" h-full">
+    <button id="homeButton" class="bg-red-500 rounded text-white flex p-1 ml-auto">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+      </svg>
+    </button>
     <h1 class="text-3xl font-bold text-center mb-6">My Weeb List</h1>
 
-    <div class="mx-auto flex flex-row w-fit gap-1 mb-6">
-      <input type="text" id="searchInput" placeholder="anime search" class="border border-black p-1 rounded"/>
-      <button id="searchButton" class="bg-red-500 px-2 transform duration-200 hover:bg-red-600 rounded">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </button>
+    <div id="search_div" class="">
+      <div class="mx-auto flex flex-row w-fit gap-1 mb-6">
+        <input type="text" id="searchInput" placeholder="anime search" class="border border-black p-1 rounded"/>
+        <button id="searchButton" class="bg-red-500 px-2 transform duration-200 hover:bg-red-600 rounded">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+      </div>
+
+      <div id="animesSearchResult" class="mx-auto w-fit text-center">
+
+      </div>
+
     </div>
 
-    <div id="animesSearchResult" class="mx-auto w-fit text-center">
+    <div id="anime_div">
+      <div id="animesResult" class="mx-auto w-fit text-center">
 
+      </div>
     </div>
+
   </main>
 </body>
 

@@ -1,4 +1,12 @@
+/** HOME BUTTON */
+let homeButton = document.getElementById('homeButton');
+homeButton.addEventListener('click', function() {
+    //HIDE ALL
+    document.getElementById('anime_div').style.display = 'none'
 
+    //DISPLAY SEARCH
+    document.getElementById('search_div').style.display = 'initial'
+});
 /** BUTTON SEARCH ANIME */
 let btn = document.getElementById('searchButton');
 btn.addEventListener('click', function() {
@@ -25,10 +33,8 @@ function searchAnimes(text) {
     fetch(url)
         .then((response) => response.json())
         .then((data) => {
+
             let datas = data.data;
-
-            console.log(datas)
-
             let itemsProcessed = 0;
 
             datas.forEach(function (item) {
@@ -38,27 +44,43 @@ function searchAnimes(text) {
                         '<span id="'+item.mal_id+'" class="mr-2">' +
                             item.title +
                         '</span>' +
-                        '<button id="addAnime_'+ item.mal_id +'" class="addAnimeBtn bg-red-500 rounded px-1 text-white">+</button>' +
+                        '<button id="addAnim00e_'+ item.mal_id +'" value="'+item.mal_id+'" class="addAnimeBtn bg-red-500 rounded px-1 text-white">+</button>' +
                     '</div>'
 
-                if(itemsProcessed === datas.length) {
-                    btnAnimeClickable();
-                }
             });
-
-
-
+            btnAnimeClickable();
         });
 
 }
 
-
 function btnAnimeClickable()
 {
-    /** INPUT BUTTON ANIME */
-    let btnAnime =  document.getElementsByClassName('addAnimeBtn')
-    console.log(btnAnime)
-    btnAnime.addEventListener('click', function() {
-        console.log(btnAnime)
-    });
+    document.querySelectorAll('.addAnimeBtn').forEach(item => {
+        item.addEventListener('click', event => {
+            //HIDE ANIME SEARCH + DISPLAY ANIME
+            document.getElementById('search_div').style.display = 'none'
+            document.getElementById('anime_div').style.display = 'initial'
+            showAnime(item.value);
+        })
+    })
+
+}
+
+function showAnime(mlId)
+{
+    const url = 'https://api.jikan.moe/v4/anime/' + mlId;
+
+    let resultAnime = document.getElementById('animesResult');
+    resultAnime.innerHTML = '';
+
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            let anime = data.data;
+            console.log(anime)
+            resultAnime.innerHTML += '<a href="'+anime.url+'" target="_blank" class="text-2xl font-semibold">'+anime.title+'</a>' +
+                '<img class="mx-auto" src="'+anime.images.jpg.image_url+'" />' +
+                '<p>Episodes : '+ anime.episodes +'</p>';
+
+        });
 }
