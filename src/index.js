@@ -175,12 +175,40 @@ function showMyAnimes()
     chrome.storage.sync.get(function (result) {
         result.animes.forEach(item => {
             animesList.innerHTML += '<div>' +
+                '<div id="anime_'+item.id+'"> ' +
+                '<div class="flex flex-row gap-1">' +
                 '<h3 class="font-semibold">' + item.title + '</h3>' +
+                '<button id="removeAnime_'+ item.id +'" value="'+item.id+'" class="removeAnimeBtn bg-red-500 rounded px-1 text-white">x</button>' +
+                '</div>' +
                 '<p>last watched episode : ' + item.episode + '</p>' +
                 '<br />' +
                 '</div>'
         });
+        btnAnimeRemove();
     });
 
+}
 
+function btnAnimeRemove()
+{
+    document.querySelectorAll('.removeAnimeBtn').forEach(item => {
+        item.addEventListener('click', event => {
+            removeAnimeFromList(item.value);
+        })
+    })
+}
+
+function removeAnimeFromList(id)
+{
+    chrome.storage.sync.get(function (result) {
+        let animes = result.animes;
+
+        animes = animes.filter(function(value, index, arr){
+            return value.id !== id;
+        });
+
+        chrome.storage.sync.set({animes});
+    });
+
+    document.getElementById('anime_'+ id).remove()
 }
