@@ -184,7 +184,8 @@ function showMyAnimes()
                 '<button id="minusAnimeBtn_'+ item.id +'" value="'+item.id+'" class="minusAnimeBtn bg-red-500 mx-1 rounded px-1 text-white">-</button>' +
                 '<button id="plusAnimeBtn'+ item.id +'" value="'+item.id+'" class="plusAnimeBtn bg-red-500 mx-1 rounded px-1 text-white">+</button>' +
                 '<br />' +
-                '</div>'
+                '</div>' +
+                '<br />'
         });
         btnAnimeRemove();
         btnAnimePlus();
