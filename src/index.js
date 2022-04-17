@@ -215,8 +215,7 @@ function removeAnimeFromList(id)
         chrome.storage.sync.set({animes});
     });
 
-    //document.getElementById('anime_'+ id).remove()
-    showMyAnimes();
+    document.getElementById('anime_'+ id).remove()
 }
 
 
