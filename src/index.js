@@ -180,11 +180,15 @@ function showMyAnimes()
                 '<h3 class="font-semibold">' + item.title + '</h3>' +
                 '<button id="removeAnime_'+ item.id +'" value="'+item.id+'" class="removeAnimeBtn bg-red-500 rounded px-1 text-white">x</button>' +
                 '</div>' +
-                '<p>last watched episode : ' + item.episode + '</p>' +
+                '<p>last watched episode : <span id="episodeFor_'+item.id+'">' + item.episode + '</span></p>' +
+                '<button id="minusAnimeBtn_'+ item.id +'" value="'+item.id+'" class="minusAnimeBtn bg-red-500 mx-1 rounded px-1 text-white">-</button>' +
+                '<button id="plusAnimeBtn'+ item.id +'" value="'+item.id+'" class="plusAnimeBtn bg-red-500 mx-1 rounded px-1 text-white">+</button>' +
                 '<br />' +
                 '</div>'
         });
         btnAnimeRemove();
+        btnAnimePlus();
+        btnAnimeMinus();
     });
 
 }
@@ -210,5 +214,61 @@ function removeAnimeFromList(id)
         chrome.storage.sync.set({animes});
     });
 
-    document.getElementById('anime_'+ id).remove()
+    //document.getElementById('anime_'+ id).remove()
+    showMyAnimes();
+}
+
+
+function btnAnimePlus()
+{
+    document.querySelectorAll('.plusAnimeBtn').forEach(item => {
+        item.addEventListener('click', event => {
+            AddOneEpisode(item.value);
+        })
+    })
+}
+
+function btnAnimeMinus()
+{
+    document.querySelectorAll('.minusAnimeBtn').forEach(item => {
+        item.addEventListener('click', event => {
+            RemoveOneEpisode(item.value);
+        })
+    })
+}
+
+function AddOneEpisode(id)
+{
+    chrome.storage.sync.get(function (result) {
+        let animes = result.animes;
+
+        animes.forEach(function (item) {
+            if(item.id === id)
+            {
+                item.episode = Number(item.episode) + 1;
+            }
+        })
+
+        chrome.storage.sync.set({animes});
+    });
+    let result = document.getElementById('episodeFor_'+ id).textContent;
+    document.getElementById('episodeFor_'+ id).textContent = Number(result) + 1;
+}
+
+function RemoveOneEpisode(id)
+{
+    chrome.storage.sync.get(function (result) {
+        let animes = result.animes;
+
+        animes.forEach(function (item) {
+            if(item.id === id)
+            {
+                item.episode = Number(item.episode) - 1;
+            }
+        })
+
+        chrome.storage.sync.set({animes});
+    });
+    let result = document.getElementById('episodeFor_'+ id).textContent;
+    document.getElementById('episodeFor_'+ id).textContent = Number(result) - 1;
 }
