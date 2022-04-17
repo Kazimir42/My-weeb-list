@@ -9,7 +9,10 @@
     "default_popup": "index.html"
   },
 
-  "permissions": ["tabs"],
+  "permissions": [
+    "tabs",
+    "storage"
+  ],
 
   "background": {
     "scripts": ["src/index.js"],
